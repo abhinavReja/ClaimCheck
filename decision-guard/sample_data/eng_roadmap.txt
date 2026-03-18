@@ -2,6 +2,7 @@ ENGINEERING ROADMAP - PROJECT ATLAS
 
 Timeline: 5 weeks remaining (NOT 1 week)
 - Week 1-2: Core API integration (IN PROGRESS)
+- Limited pilot: one squad deployment-pipeline dashboard by next Friday (within 1 week)
 - Week 3: Internal testing and QA
 - Week 4: Staging deployment and load testing
 - Week 5: Production rollout with canary release

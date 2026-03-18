@@ -11,6 +11,9 @@ Daily Active Users: 32,000 (NOT 50,000)
 - WAU: 45,000
 - MAU: 89,000
 
+Deployment frequency: 3 deployments per week (NOT "as often as needed")
+- Target for incident remediation is 30 minutes (p1) (this is tracked by Atlas)
+
 Support Ticket Volume: Increasing
 - Average resolution time: 48 hours (target: 24 hours)
 Last updated: March 10, 2025

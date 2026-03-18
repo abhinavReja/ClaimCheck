@@ -14,6 +14,18 @@ def test_openai_live_llm_json_roundtrip():
     if not os.getenv("OPENAI_API_KEY"):
         pytest.skip("OPENAI_API_KEY not set; skipping live OpenAI test.")
 
+    # If user runs pytest with the *global* python (old openai SDK), skip with a clear hint.
+    try:
+        import openai  # type: ignore
+
+        if not hasattr(openai, "OpenAI"):
+            pytest.skip(
+                "OpenAI SDK is too old (missing openai.OpenAI). Run tests using the venv: "
+                r".\.venv\Scripts\python -m pytest -m integration"
+            )
+    except Exception:
+        pytest.skip("OpenAI SDK not importable; skipping live OpenAI test.")
+
     # Force OpenAI path for this test even if your .env sets anthropic.
     import config as config_module
 
