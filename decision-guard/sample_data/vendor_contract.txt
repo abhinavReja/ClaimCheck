@@ -1,7 +1,7 @@
-VENDOR CONTRACT - TECHFLOW SOLUTIONS
+VENDOR CONTRACT - PROJECT ATLAS (TCS DELIVERY PARTNER)
 
-Contract Value: $125,000
-Delivery Date: April 30, 2025 (NOT March 15)
+Contract Value: $150,000 (per quoted Growth plan)
+Delivery Date: Next Friday (within 1 week) (NOT April 30, 2025)
 - Phase 1 API delivery: April 15
 - Phase 2 Integration support: April 30
 

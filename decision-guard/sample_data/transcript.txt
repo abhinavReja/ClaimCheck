@@ -1,9 +1,12 @@
-[00:01] Sarah (PM): Alright team, let's discuss the product launch. Our budget for Project Atlas is 200 thousand dollars and we're on track.
-[00:15] Mike (Eng Lead): Yeah, I think we can launch by next Friday. The engineering work is mostly done.
-[00:30] Sarah (PM): Great. And the vendor, TechFlow Solutions, confirmed they'll deliver the API integration by March 15th.
-[00:45] Lisa (Marketing): Our customer churn rate is around 2%, so retention looks solid for the launch.
-[01:00] Mike (Eng Lead): The security review is complete, so we're clear on that front.
-[01:15] Sarah (PM): Perfect. I also checked — we don't need legal review for this vendor contract since it's under 100k.
-[01:30] Jake (Data): Our daily active users are at 50,000 and growing 10% month over month.
-[01:45] Lisa (Marketing): The support team is fully trained and ready for launch day.
-[02:00] Sarah (PM): Let's commit to the Friday launch then. Everyone agrees?
+[00:01] Priya (Client): Thanks for joining, TCS team. We’re looking for a software development platform (Project Atlas). Our top requirement is a pilot of the deployment pipeline within one week—by next Friday.
+[00:15] Arjun (TCS): Yes. We can support a limited pilot with one squad by next Friday. Our engineering roadmap shows about five weeks of planned work remaining for the full rollout.
+[00:30] Priya (Client): Budget-wise, we believe the project is on track at $200,000 approved spend.
+[00:45] Arjun (TCS): Our quoted Growth plan is $150,000 per year. Any spend above $150,000 requires VP Finance approval.
+[01:00] Priya (Client): For KPIs, we want churn around 2% per month and DAU around 50,000. We’ll need Atlas to surface both from our data warehouse.
+[01:15] Arjun (TCS): In our Atlas metrics, customer churn is closer to 4.5% and DAU baseline is about 32,000, not 50,000.
+[01:30] Priya (Client): For reliability, P1 incident remediation must be within 15 minutes.
+[01:45] Arjun (TCS): Our target for P1 incident remediation is 30 minutes, and Atlas tracks remediation performance against that target.
+[02:00] Priya (Client): Security is another big requirement. Our team was told the security review is complete and that penetration testing has already been done—so production sign-off is fully complete.
+[02:15] Arjun (TCS): Our current security checklist is incomplete today: threat modeling and authentication reviews are done, but penetration testing is not started yet and data encryption audit is in progress. Production sign-off requires completing the pen test (and encryption-related audits).
+[02:30] Priya (Client): On legal review, procurement told us that for software contracts under 50k we can skip formal legal review. Since your quote is $150k, we expect legal can be skipped in our case.
+[02:45] Arjun (TCS): That’s not accurate for a $150,000 contract. Vendor contracts above $50,000 require mandatory legal review, so legal review is required before finalizing the contract.

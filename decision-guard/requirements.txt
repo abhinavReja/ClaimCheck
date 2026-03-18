@@ -7,3 +7,5 @@ streamlit
 requests
 python-dotenv
 pydantic
+pytest
+tavily-python

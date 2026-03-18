@@ -1,7 +1,9 @@
 import json
 
 from agent2_rag import search_docs
+from config import DEFAULT_CLIENT_NAME
 from llm import llm_json
+from web_search import client_profile_query, web_research
 
 
 def fact_check(claim: dict) -> dict:
@@ -19,7 +21,19 @@ def fact_check(claim: dict) -> dict:
         [f"[Source: {r['source']}]\n{r['content']}" for r in doc_results]
     )
 
-    web_context = ""
+    # Web context: light Tavily research, rate-limited in web_search.py.
+    # We keep the focus provider-related (TCS capabilities) rather than
+    # claim-specific, so the web evidence stays relevant.
+    focus_by_type = {
+        "timeline": "software delivery timeline pilot rollout",
+        "commitment": "managed services delivery commitments SLA",
+        "status": "security compliance certifications SOC2 ISO incident response",
+        "policy": "procurement legal review compliance vendor contract process",
+        "number": "incident remediation SLA P1 target churn analytics",
+    }
+    focus = focus_by_type.get(claim_type, "software delivery security certifications incident response SLA")
+    web_query = client_profile_query(DEFAULT_CLIENT_NAME, focus=focus)
+    web_context, web_sources = web_research(web_query, max_results=4)
 
     system = """You are a fact-checking agent for meetings. You receive a claim made during a meeting and evidence from company documents and web search.
 
@@ -40,7 +54,7 @@ Return ONLY valid JSON with this exact structure:
     "sources": ["list of source filenames or URLs used"]
 }
 
-Be specific. Cite exact numbers and dates from the evidence. Do NOT wrap in markdown.""",
+Be specific. Cite exact numbers and dates from the evidence. Do NOT wrap in markdown."""
     user = f"""CLAIM: {claim_text}
 CLAIM TYPE: {claim_type}
 SPEAKER: {speaker}
@@ -49,7 +63,7 @@ COMPANY DOCUMENTS:
 {doc_context}
 
 WEB SEARCH RESULTS:
-{web_context if web_context else 'Web search disabled for this deployment.'}""",
+{web_context if web_context else 'No useful web evidence was found or web search was skipped.'}"""
     result = llm_json(
         system=system,
         user=user,
@@ -66,6 +80,13 @@ WEB SEARCH RESULTS:
 
     result["original_claim"] = claim_text
     result["speaker"] = speaker
+    if web_sources:
+        # Append web sources to whatever list the model already returned.
+        sources = result.get("sources") or []
+        if isinstance(sources, list):
+            result["sources"] = list({*sources, *web_sources})
+        else:
+            result["sources"] = web_sources
     return result
 
 
@@ -80,7 +101,8 @@ def answer_question(question: str, meeting_context: str) -> dict:
         [f"[Source: {r['source']}]\n{r['content']}" for r in doc_results]
     )
 
-    web_context = ""
+    web_query = client_profile_query(DEFAULT_CLIENT_NAME, focus="TCS company services security delivery incident response")
+    web_context, web_sources = web_research(web_query, max_results=4)
 
     system = """You are a meeting knowledge assistant. Answer the user's question using the meeting context, company documents, and web search results provided.
 
@@ -94,7 +116,7 @@ Return ONLY valid JSON with this exact structure:
 }
 
 If you cannot answer confidently, set needs_human to true and explain why.
-Do NOT wrap in markdown.""",
+Do NOT wrap in markdown."""
     user = f"""QUESTION: {question}
 
 MEETING TRANSCRIPT SO FAR:
@@ -104,8 +126,8 @@ COMPANY DOCUMENTS:
 {doc_context}
 
 WEB SEARCH:
-{web_context if web_context else 'Web search disabled for this deployment.'}""",
-    return llm_json(
+{web_context if web_context else 'No useful web evidence was found or web search was skipped.'}"""
+    result = llm_json(
         system=system,
         user=user,
         default={
@@ -117,6 +139,14 @@ WEB SEARCH:
         },
         temperature=0.1,
     )
+
+    if web_sources:
+        src = result.get("sources") or []
+        if isinstance(src, list):
+            result["sources"] = list({*src, *web_sources})
+        else:
+            result["sources"] = web_sources
+    return result
 
 
 if __name__ == "__main__":

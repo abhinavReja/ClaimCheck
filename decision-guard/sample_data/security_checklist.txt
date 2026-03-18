@@ -14,4 +14,5 @@ Required for launch: ALL items must be checked
 Security team sign-off: NOT GIVEN
 
 Note: Cannot proceed to production without completed pen test.
+For production sign-off, penetration testing and data encryption audits must be completed.
 Last updated: March 8, 2025
