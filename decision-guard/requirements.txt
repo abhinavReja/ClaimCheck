@@ -1,0 +1,9 @@
+openai
+anthropic
+chromadb
+fastapi
+uvicorn
+streamlit
+requests
+python-dotenv
+pydantic

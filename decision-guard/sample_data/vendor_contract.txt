@@ -1,0 +1,15 @@
+VENDOR CONTRACT - TECHFLOW SOLUTIONS
+
+Contract Value: $125,000
+Delivery Date: April 30, 2025 (NOT March 15)
+- Phase 1 API delivery: April 15
+- Phase 2 Integration support: April 30
+
+Contract requires:
+- Legal review (mandatory for all contracts above $50,000)
+- Procurement team sign-off
+- Security assessment of vendor API
+
+Legal review status: NOT STARTED
+Procurement sign-off: PENDING
+Last updated: February 2025
