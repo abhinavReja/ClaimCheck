@@ -20,6 +20,12 @@ if "is_running" not in st.session_state:
     st.session_state.is_running = False
 if "qa_history" not in st.session_state:
     st.session_state.qa_history = []
+if "sim_lines" not in st.session_state:
+    st.session_state.sim_lines = []
+if "sim_idx" not in st.session_state:
+    st.session_state.sim_idx = 0
+if "_sim_tick_rerun" not in st.session_state:
+    st.session_state._sim_tick_rerun = False
 
 col1, col2 = st.columns([1, 1])
 
@@ -35,6 +41,9 @@ with col1:
         st.session_state.fact_checks = []
         st.session_state.full_transcript = ""
         st.session_state.qa_history = []
+        st.session_state.sim_lines = []
+        st.session_state.sim_idx = 0
+        st.session_state._sim_tick_rerun = False
 
         if uploaded_file:
             content = uploaded_file.read().decode("utf-8")
@@ -49,21 +58,26 @@ with col1:
             st.warning("Upload a transcript or check 'Use sample transcript'.")
             st.stop()
 
-        lines = [l.strip() for l in content.split("\n") if l.strip()]
+        st.session_state.sim_lines = [l.strip() for l in content.split("\n") if l.strip()]
 
-        progress_bar = st.progress(0)
-        transcript_container = st.empty()
+    progress_bar = st.progress(
+        0 if not st.session_state.sim_lines else (st.session_state.sim_idx / max(1, len(st.session_state.sim_lines)))
+    )
+    transcript_container = st.empty()
 
-        for i, line in enumerate(lines):
+    transcript_container.code(
+        "\n".join(st.session_state.transcript_lines) or "Waiting for transcript...",
+        language=None,
+    )
+
+    # Process exactly one line per run. We DO NOT rerun immediately here,
+    # otherwise the right-hand column won't render until the simulation ends.
+    if st.session_state.is_running and st.session_state.sim_lines:
+        i = st.session_state.sim_idx
+        if i < len(st.session_state.sim_lines):
+            line = st.session_state.sim_lines[i]
             st.session_state.transcript_lines.append(line)
             st.session_state.full_transcript += line + "\n"
-
-            transcript_container.text_area(
-                "Live Transcript",
-                "\n".join(st.session_state.transcript_lines),
-                height=300,
-                key=f"transcript_{i}",
-            )
 
             try:
                 response = requests.post(
@@ -77,20 +91,20 @@ with col1:
                 st.error(
                     "Cannot connect to API. Make sure 'uvicorn api:app --reload --port 8000' is running."
                 )
-                st.stop()
+                st.session_state.is_running = False
             except Exception as e:
                 st.error(f"API error: {e}")
 
-            progress_bar.progress((i + 1) / len(lines))
-            time.sleep(1)
-
-        st.session_state.is_running = False
-        st.success("✅ Meeting simulation complete!")
+            st.session_state.sim_idx += 1
+            progress_bar.progress(st.session_state.sim_idx / len(st.session_state.sim_lines))
+            st.session_state._sim_tick_rerun = True
+        else:
+            st.session_state.is_running = False
+            st.session_state._sim_tick_rerun = False
+            st.success("✅ Meeting simulation complete!")
 
     if st.session_state.transcript_lines and not st.session_state.is_running:
-        st.text_area(
-            "Full Transcript", "\n".join(st.session_state.transcript_lines), height=300
-        )
+        st.text_area("Full Transcript", "\n".join(st.session_state.transcript_lines), height=300)
 
 with col2:
     st.subheader("⚡ Fact-Check Results")
@@ -201,4 +215,10 @@ with st.sidebar:
     st.write("• 15-min deep summary push between agents")
     st.write("• Decision memory across meetings")
     st.write("• Outcome tracking & learning")
+
+if st.session_state.is_running and st.session_state._sim_tick_rerun:
+    # Allow the UI (including right column) to render before advancing.
+    st.session_state._sim_tick_rerun = False
+    time.sleep(0.25)
+    st.rerun()
 

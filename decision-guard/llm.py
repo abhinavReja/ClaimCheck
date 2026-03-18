@@ -56,10 +56,26 @@ def llm_json(*, system: str, user: str, default, temperature: float = 0.1):
     import openai
 
     client = openai.OpenAI(api_key=OPENAI_API_KEY)
-    resp = client.chat.completions.create(
+    # Use the Responses API for broad compatibility with newer OpenAI SDKs/models.
+    resp = client.responses.create(
         model=OPENAI_MODEL,
-        messages=[{"role": "system", "content": system}, {"role": "user", "content": user}],
+        input=[
+            # For Responses API, "content" must be a list of content-part objects.
+            {"role": "system", "content": [{"type": "input_text", "text": system}]},
+            {"role": "user", "content": [{"type": "input_text", "text": user}]},
+        ],
         temperature=temperature,
     )
-    return _extract_json(resp.choices[0].message.content, default)
+
+    text = getattr(resp, "output_text", None)
+    if not text:
+        # Fallback: best-effort extract from structured output blocks
+        text_parts = []
+        for item in getattr(resp, "output", []) or []:
+            for block in getattr(item, "content", []) or []:
+                if getattr(block, "type", None) in ("output_text", "text"):
+                    text_parts.append(getattr(block, "text", "") or "")
+        text = "".join(text_parts)
+
+    return _extract_json(text or "", default)
 

@@ -40,7 +40,7 @@ Return ONLY valid JSON with this exact structure:
     "sources": ["list of source filenames or URLs used"]
 }
 
-Be specific. Cite exact numbers and dates from the evidence. Do NOT wrap in markdown.""",
+Be specific. Cite exact numbers and dates from the evidence. Do NOT wrap in markdown."""
     user = f"""CLAIM: {claim_text}
 CLAIM TYPE: {claim_type}
 SPEAKER: {speaker}
@@ -49,7 +49,7 @@ COMPANY DOCUMENTS:
 {doc_context}
 
 WEB SEARCH RESULTS:
-{web_context if web_context else 'Web search disabled for this deployment.'}""",
+{web_context if web_context else 'Web search disabled for this deployment.'}"""
     result = llm_json(
         system=system,
         user=user,
@@ -94,7 +94,7 @@ Return ONLY valid JSON with this exact structure:
 }
 
 If you cannot answer confidently, set needs_human to true and explain why.
-Do NOT wrap in markdown.""",
+Do NOT wrap in markdown."""
     user = f"""QUESTION: {question}
 
 MEETING TRANSCRIPT SO FAR:
@@ -104,7 +104,7 @@ COMPANY DOCUMENTS:
 {doc_context}
 
 WEB SEARCH:
-{web_context if web_context else 'Web search disabled for this deployment.'}""",
+{web_context if web_context else 'Web search disabled for this deployment.'}"""
     return llm_json(
         system=system,
         user=user,

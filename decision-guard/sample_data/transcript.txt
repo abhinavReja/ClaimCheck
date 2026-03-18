@@ -1,9 +1,10 @@
-[00:01] Sarah (PM): Alright team, let's discuss the product launch. Our budget for Project Atlas is 200 thousand dollars and we're on track.
+[00:01] Sarah (PM): Alright team, let's discuss the product launch. Our approved budget for Project Atlas is 150 thousand dollars and we're on track.
 [00:15] Mike (Eng Lead): Yeah, I think we can launch by next Friday. The engineering work is mostly done.
 [00:30] Sarah (PM): Great. And the vendor, TechFlow Solutions, confirmed they'll deliver the API integration by March 15th.
 [00:45] Lisa (Marketing): Our customer churn rate is around 2%, so retention looks solid for the launch.
 [01:00] Mike (Eng Lead): The security review is complete, so we're clear on that front.
-[01:15] Sarah (PM): Perfect. I also checked — we don't need legal review for this vendor contract since it's under 100k.
+[01:15] Sarah (PM): Perfect. I also checked — we don't need legal review for this vendor contract since it's under 50k.
 [01:30] Jake (Data): Our daily active users are at 50,000 and growing 10% month over month.
+[01:38] Jake (Data): Also, we have 1,200 beta users on the waitlist as of today.
 [01:45] Lisa (Marketing): The support team is fully trained and ready for launch day.
 [02:00] Sarah (PM): Let's commit to the Friday launch then. Everyone agrees?

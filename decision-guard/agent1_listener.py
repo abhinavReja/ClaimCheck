@@ -25,7 +25,7 @@ Return a JSON array of claims. Each claim should have:
 - "type": one of "number", "timeline", "status", "commitment", "policy"
 
 If no checkable claims found, return an empty array [].
-Return ONLY valid JSON, no other text.""",
+Return ONLY valid JSON, no other text."""
     user = f"Extract claims from this meeting transcript:\n\n{transcript_chunk}"
     return llm_json(system=system, user=user, default=[], temperature=0.1)
 
