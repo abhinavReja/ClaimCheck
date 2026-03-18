@@ -1,0 +1,15 @@
+ENGINEERING ROADMAP - PROJECT ATLAS
+
+Timeline: 5 weeks remaining (NOT 1 week)
+- Week 1-2: Core API integration (IN PROGRESS)
+- Week 3: Internal testing and QA
+- Week 4: Staging deployment and load testing
+- Week 5: Production rollout with canary release
+
+Current Blockers:
+- Payment service migration not complete
+- 3 open P1 bugs in checkout flow
+- Performance benchmarks not yet met (target: <200ms p99)
+
+Engineering sign-off: NOT GIVEN
+Last updated: March 2025

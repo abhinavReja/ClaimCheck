@@ -1,0 +1,16 @@
+KEY METRICS DASHBOARD - MARCH 2025
+
+Customer Churn Rate: 4.5% (NOT 2%)
+- Churn increased from 3.1% to 4.5% over last quarter
+- Primary driver: onboarding friction in new user flow
+- Churn target for Q1: 3.0% (MISSED)
+
+Daily Active Users: 32,000 (NOT 50,000)
+- DAU has been flat for 6 weeks
+- Growth rate: 2% month over month (NOT 10%)
+- WAU: 45,000
+- MAU: 89,000
+
+Support Ticket Volume: Increasing
+- Average resolution time: 48 hours (target: 24 hours)
+Last updated: March 10, 2025

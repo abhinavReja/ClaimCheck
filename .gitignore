@@ -1,0 +1,35 @@
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+
+# Virtualenvs
+.venv/
+venv/
+ENV/
+env/
+
+# ChromaDB local persistence
+chroma_db/
+
+# Streamlit
+.streamlit/
+
+# Logs and misc
+*.log
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
